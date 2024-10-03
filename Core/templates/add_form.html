@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استمارة</title>
+</head>
+<style>
+    .main_container{
+        display : flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .sub_container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid black;
+        border-radius: 8px;
+        background: #efeeee;
+        width: 400px;
+        margin: 20px;
+    }
+    .field_container{
+        margin: 10px;
+    }
+    .field_container input ,select{
+        border-radius: 8px;
+        border: 1px solid;
+        width: 170px;
+        text-align: center;
+    }
+
+    /* Hide table borders */
+    table {
+        border-collapse: collapse;      /* Collapse borders */
+        width: 100%;                    /* Full width */
+    }
+
+    /* Hide all cell borders */
+    td {
+        border: none;                   /* No borders */
+        padding: 8px;                  /* Padding for cells */
+        vertical-align: middle;
+        text-align: center;            /* Align text to the top */  
+    }
+
+    /* Input field styling */
+    input ,select{
+        border-radius: 8px;
+        border: 1px solid;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Focus effect for input field */
+    input:focus {
+        border-color: #66afe9;          /* Change border color on focus */
+        outline: none;                  /* Remove default outline */
+    }
+    .submit_btn{
+        display: flex;
+        justify-content: center;
+    }
+    .submit_btn button{
+        width: 200px;
+        height: 30px;
+        background-color: rgb(210, 210, 210);
+        border: 1px solid black;
+        border-radius: 8px;
+    }
+</style>
+<body>
+    <div class="main_container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="sub_container">
+            <h2>المعلومات الاساسية</h2>
+            <table>
+                <tr>
+                    <td>
+                        <input type="number" id="student_id" name="student_id" required>
+                    </td>
+                    <td>
+                        <label for="student_id">:الرقم</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="teacher_name" name="teacher_name" required>
+                    </td>
+                    <td>
+                        <label for="teacher_name">:المعلم</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select name="level_id" id="level_id" required>
+                            <option value="" readonly>-</option>
+                            {% for level in levels %}
+                            <option value="{{level.id}}">{{level.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <label for="level_id">:الطور</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="situation" name="situation" required>
+                    </td>
+                    <td>
+                        <label for="situation">:الوضعية</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+            <div class="sub_container">
+                <h2>المعلومات الطالب</h2>
+                <table>
+                    <tr>
+                        <td>
+                            <input type="text" id="student_name" name="student_name" required>
+                        </td>
+                        <td>
+                            <label for="student_name">:الاسم</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" id="student_last_name" name="student_last_name" required>
+                        </td>
+                        <td>
+                            <label for="student_last_name">:اللقب</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="date" id="date_birth" name="date_birth" placeholder="اختر تاريخ الميلاد" required>
+                        </td>
+                        <td>
+                            <label for="date_birth">:تاريخ ميلاد</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" id="adress" name="adress" required>
+                        </td>
+                        <td>
+                            <label for="adress">:العنوان</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="number" id="level_year" name="level_year" required>
+                        </td>
+                        <td>
+                            <label for="level_year">:المستوى الدراسي</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="sub_container">
+                <h2>المعلومات الولي</h2>
+                <table>
+                    <tr>
+                        <td>
+                            <input type="text" id="parent_name" name="parent_name" required>
+                        </td>
+                        <td>
+                            <label for="parent_name">:الاسم و اللقب</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" id="parent_phone" name="parent_phone" required>
+                        </td>
+                        <td>
+                            <label for="parent_phone">:رقم الهاتف</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="submit_btn">
+                <button type="submit">تأكيد</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

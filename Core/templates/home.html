@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الرئيسية</title>
+</head>
+<style>
+    .button_container{
+        display:flex;
+        justify-content: center;
+        padding: 10px;
+    }
+    .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #4cafaf;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        width: 200px;
+        height: 50px;
+    }
+
+    .btn:hover {
+        background-color: #459ba0;
+    }
+
+    .navbar {
+            background-color: #6CA6F9; /* Blueish color */
+            padding: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Center items */
+            align-items: center; /* Vertically center items */
+            height: 50px; /* Fixed height */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+        }
+
+        .navbar a:hover {
+            background-color: #5A9BD3; /* Lighter blue on hover */
+        }
+
+    body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+</style>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}">صفحة الرئيسية</a> 
+    </div>
+    <div class="button_container">
+        <a href="{% url 'add_form' %}" class="btn">ملأ استمارة جديدة</a>
+    </div>
+    <div class="button_container">
+        <a href="{% url 'get_form' %}" class="btn">تأكيد استمارة</a>
+    </div>
+    <div class="button_container">
+        <a href="{% url 'list_student' %}" class="btn">اظهار التسجيلات</a>
+    </div>
+</body>
+</html>

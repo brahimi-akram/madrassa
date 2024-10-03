@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأكيد استمارة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .main_container {
+            background-color: white;
+            padding: 20px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .main_container input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .submit_btn {
+            display: flex;
+            justify-content: center;
+        }
+
+        .submit_btn button {
+            width: 100px;
+            height: 30px;
+            background-color: rgb(210, 210, 210);
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+
+        .navbar {
+            background-color: #6CA6F9; /* Blueish color */
+            padding: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Center items */
+            align-items: center; /* Vertically center items */
+            height: 50px; /* Fixed height */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+        }
+
+        .navbar a:hover {
+            background-color: #5A9BD3; /* Lighter blue on hover */
+        }
+
+        /* Ensure the form is centered below the navbar */
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+        }
+
+        .action-buttons a {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .delete-btn {
+            background-color: #ff4d4d; /* Red for delete */
+        }
+
+        .update-btn {
+            background-color: #4CAF50; /* Green for update */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}">صفحة الرئيسية</a> 
+    </div>
+    <div class="main_container">
+        <form method="post">
+            <label for="student_code">ادخال الرمز</label>
+            <input type="text" id="student_code" name="student_code" required>
+            <div class="submit_btn">
+                <button type="submit">تأكيد</button>
+            </div>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>العمليات</th>
+                <th>الصف</th>
+                <th>الاسم</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td class="action-buttons">
+                    <a class="update-btn" href="{% url 'update_form' student.id %}">تحديث</a>
+                </td>
+                <td>{{ student.level }}</td>
+                <td>{{ student.first_name }} {{student.last_name}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+</body>
+<script>
+    window.onload = function(){
+        document.getElementById('student_code').focus();
+    }
+</script>
+</html>
+

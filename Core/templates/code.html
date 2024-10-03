@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض الرمز الشريطي</title>
+    <script src="{% static 'js/JsBarcode.all.min.js' %}"></script>
+    <style>
+        /* Optional: Center the barcode */
+        .barcode-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="barcode-container">
+        <h2 style="margin-bottom: 50px;">الرمز الشريطي للطالب</h2>
+        <svg id="barcode"></svg>
+        <script>
+            // Get the student ID passed from the Django view
+            const studentId = "{{ student_id }}";  // Pass the student_id to your template context
+
+            // Generate the barcode
+            JsBarcode("#barcode", studentId, {
+                format: "CODE128",
+                lineColor: "#000",
+                width: 6,
+                height: 80,
+                displayValue: true,
+                fontSize:20
+            });
+
+            window.onload = function() {
+                    history.replaceState(null, document.title, location.href);
+            };
+            window.onpopstate = function(event) {
+                // Reload the current page
+                window.location.reload();
+            };
+        </script>
+    </div>
+</body>
+</html>

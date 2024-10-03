@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة الطلاب</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0px;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background-color: #6CA6F9; /* Blueish color */
+            padding: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Center items */
+            align-items: center; /* Vertically center items */
+            height: 50px; /* Fixed height */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+        }
+
+        .navbar a:hover {
+            background-color: #5A9BD3; /* Lighter blue on hover */
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+        }
+
+        .action-buttons a {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .delete-btn {
+            background-color: #ff4d4d; /* Red for delete */
+        }
+
+        .update-btn {
+            background-color: #4CAF50; /* Green for update */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}">الصفحة الرئيسية</a>
+    </div>
+    <h1 style="display: flex; justify-content: center;">قائمة الطلاب</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>العمليات</th>
+                <th>المعلم</th>
+                <th>الصف</th>
+                <th>الاسم</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td class="action-buttons">
+                    <a class="update-btn" href="{% url 'update_form' student.num %}">تحديث</a>
+                </td>
+                <td>{{ student.teacher.name }}</td>
+                <td>{{ student.level }}</td>
+                <td>{{ student.first_name }} {{student.last_name}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
