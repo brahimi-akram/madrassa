@@ -1,53 +1,39 @@
-from docx import Document
+from docxtpl import DocxTemplate
 import os
 from .models import *
-def replace_placeholders_in_paragraph(paragraph, replacements):
-    # Combine all runs into one single string
-    full_text = ''.join(run.text for run in paragraph.runs)
-    # Replace placeholders in the full text
-    for placeholder, value in replacements.items():
-        if placeholder in full_text:
-            full_text = full_text.replace(placeholder, str(value))
-    
-    # Clear the paragraph runs (to replace with new text)
-    for run in paragraph.runs:
-        run.text = ''
-
-    # Redistribute the modified text back into the first run
-    if paragraph.runs:
-        paragraph.runs[0].text = full_text
-
-
-def replace_placeholders_in_table(table, replacements):
-    for row in table.rows:
-        for cell in row.cells:
-            for paragraph in cell.paragraphs:
-                replace_placeholders_in_paragraph(paragraph, replacements)
+import subprocess  # For opening the document after generating
 
 def generate_doc(student_id):
-    student = Student.objects.get(id= student_id)
+    student = Student.objects.get(id=student_id)
+    
+    # Define paths for the template and output
     current_directory = os.getcwd()
-    file_path = os.path.join(current_directory,'template.docx')
-    output_path = os.path.join(current_directory,'media')
-    output_path = os.path.join(output_path,f'{student}.docx')
-    replacement={
-        'student_id':student.num,
-        'teacher':student.teacher.name,
-        'level':student.level.name,
-        'situ':student.situation,
-        'studentName':f'{student.first_name} {student.last_name}',
-        'birthDate':student.date_birth,
-        'address':student.adress,
-        'class':f'{student.level.name} {student.level_year}',
-        'parentName':student.parent.name,
-        'parentPhone':student.parent.phone
+    file_path = os.path.join(current_directory, 'template.docx')
+    output_path = os.path.join(current_directory, 'media', f'{student}.docx')
+    
+    # Prepare the replacements dictionary (placeholders and their values)
+    replacement = {
+        'student_id': student.num,
+        'teacher': student.teacher.name,
+        'level': student.level.name,
+        'situ': student.situation,
+        'StudentName': f'{student.first_name} {student.last_name}',
+        'BirthDate': student.date_birth.strftime('%Y-%m-%d'),  # Format the date
+        'Address': student.adress,
+        'Class': f'{student.level.name} {student.level_year}',
+        'ParentName': student.parent.name,
+        'ParentPhone': student.parent.phone
     }
-    doc = Document(file_path)
-    for paragraph in doc.paragraphs:
-        replace_placeholders_in_paragraph(paragraph, replacement)
 
-    # Iterate through tables to replace placeholders
-    for table in doc.tables:
-        replace_placeholders_in_table(table, replacement)
+    # Load the Word document template
+    doc = DocxTemplate(file_path)
+    
+    # Render the template with the replacement context
+    doc.render(replacement)
 
+    # Save the filled document
     doc.save(output_path)
+
+    # Open the generated document (works on Windows)
+    if os.name == 'nt':
+        os.startfile(output_path)  # For Windows

@@ -6,13 +6,21 @@
     <title>استمارة</title>
 </head>
 <style>
-    .main_container{
-        display : flex;
+    body{
+        margin-left: 5px ;
+        margin-right: 5px;
+    }
+    /* General styling for the main container */
+    .main_container {
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 10px;
     }
-    .sub_container{
+
+    /* Styling for the form sections */
+    .sub_container {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -20,56 +28,85 @@
         border: 2px solid black;
         border-radius: 8px;
         background: #efeeee;
-        width: 400px;
-        margin: 20px;
+        width: 100%;
+        max-width: 400px;
+        margin: 20px 0;
+        padding: 20px;
     }
-    .field_container{
+
+    /* Field container styling */
+    .field_container {
         margin: 10px;
     }
-    .field_container input ,select{
-        border-radius: 8px;
-        border: 1px solid;
-        width: 170px;
-        text-align: center;
-    }
 
-    /* Hide table borders */
-    table {
-        border-collapse: collapse;      /* Collapse borders */
-        width: 100%;                    /* Full width */
-    }
-
-    /* Hide all cell borders */
-    td {
-        border: none;                   /* No borders */
-        padding: 8px;                  /* Padding for cells */
-        vertical-align: middle;
-        text-align: center;            /* Align text to the top */  
-    }
-
-    /* Input field styling */
-    input ,select{
+    /* Input and select field styling */
+    .field_container input, select {
         border-radius: 8px;
         border: 1px solid;
         width: 100%;
         text-align: center;
     }
 
-    /* Focus effect for input field */
-    input:focus {
-        border-color: #66afe9;          /* Change border color on focus */
-        outline: none;                  /* Remove default outline */
+    /* Table styling (used to align labels and inputs) */
+    table {
+        border-collapse: collapse;
+        width: 100%;
     }
-    .submit_btn{
+
+    td {
+        padding: 8px;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    /* Input and select field styling for better interaction */
+    input, select {
+        border-radius: 8px;
+        border: 1px solid;
+        width: 100%;
+        text-align: center;
+        padding: 8px;
+    }
+
+    input:focus {
+        border-color: #66afe9;
+        outline: none;
+    }
+
+    /* Submit button styling */
+    .submit_btn {
         display: flex;
         justify-content: center;
     }
-    .submit_btn button{
+
+    .submit_btn button {
         width: 200px;
-        height: 30px;
+        height: 40px;
         background-color: rgb(210, 210, 210);
         border: 1px solid black;
         border-radius: 8px;
+        cursor: pointer;
+    }
+
+    /* Responsive adjustments for screens less than 600px wide */
+    @media (max-width: 600px) {
+        /* Adjust the sub-container width for smaller screens */
+        
+        .sub_container {
+            width: 100%;
+            max-width: 300px;
+            margin: 10px 0;
+        }
+
+        /* Adjust button size for mobile */
+        .submit_btn button {
+            width: 100%;
+        }
+
+        /* Adjust padding and margins for mobile */
+        td {
+            padding: 4px;
+        }
     }
 </style>
 <body>

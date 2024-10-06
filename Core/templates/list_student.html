@@ -95,7 +95,7 @@
             {% for student in students %}
             <tr>
                 <td class="action-buttons">
-                    <a class="update-btn" href="{% url 'update_form' student.num %}">تحديث</a>
+                    <a class="update-btn" href="{% url 'update_form' student.id %}">تحديث</a>
                 </td>
                 <td>{{ student.teacher.name }}</td>
                 <td>{{ student.level }}</td>
